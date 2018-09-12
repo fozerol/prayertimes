@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+        <script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>        
+        <!--<script src="webjars/jquery/1.9.1/jquery.min.js"></script>-->
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+        <script>
+            var previousAjaxCall;
+            function autoCompleteSearch() {
+                var min_length = 4; // Min character to display the auto complete
+                var keyword = $('#small-search').val();
+                alert(keyword);
+                if (keyword.length >= min_length) {
+                    if (previousAjaxCall)
+                        previousAjaxCall.abort();
+                    previousAjaxCall = $.ajax({
+                        url: "/home/deneme?cityOnly=1&keyword" + keyword,
+                        type: 'GET',
+                        dataType: "json",
+                        data: {'keyword': keyword},
+                        success: function (data) {
+                            //	    	$('.search-retults-container').remove();
+                            //	    	var cityDiv = "<div class='search-retults-container'><div class='search-results'>";
+                            //	    	if(data.length > 0) {
+                            //		     for(var id in data) {
+                            //		      var cityInfo  = data[id];
+                            //		      cityDiv += '<a class="search-result-item city" href="/my-location/'
+                            //					+ cityInfo.id + '/'+localeParam+'">' + cityInfo['cityDetail'] + '</a>';
+                            //		     }
+                            //		     
+                            //		     cityDiv += "</div>";
+                            //		   	} 
+                            //	    	else {
+                            //	    		cityDiv += '<div class="empty">' + noMatchFound + '</div></div>';
+                            //	    		
+                            //	    	}
+                            //	    	cityDiv += "<a class='tt-footer' href='/world/"+localeParam+"'>"+browseCountries+"</a>";
+                            //	    
+                            //	    	cityDiv += "</div>";
+                            //	    	$('.top-bar-search').append(cityDiv);
+                        }
+                    });
+                }
+            }
+        </script>
+
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+
+        <div>
+
+        </div>
+        <div id="msgid">
+            <input id="small-search" type="text" placeholder="Search Your City" class="my-location-search typeahead input-group-field" onkeyup="autoCompleteSearch();" value="">
+        </div>
+        <script>
+
+            var previousAjaxCall;
+            function autoCompleteSearch() {
+                var min_length = 0; // Min character to display the auto complete
+                var keyword = $('#small-search').val();
+                //alert(keyword);
+                if (keyword.length >= min_length) {
+                    if (previousAjaxCall)
+                        previousAjaxCall.abort();
+                    previousAjaxCall = $.ajax({
+                        url: "/home/deneme",
+                        type: 'POST',
+                        dataType: "json",
+                        data: {'keyword': keyword},
+                        success: function (data) {
+alert(data);
+                            $("#small-search").autocomplete({
+                                source: data
+                            });
+                            //alert(data);
+//	    	$('.search-retults-container').remove();
+//	    	var cityDiv = "<div class='search-retults-container'><div class='search-results'>";
+//	    	if(data.length > 0) {
+//		     for(var id in data) {
+//		      var cityInfo  = data[id];
+//		      cityDiv += '<a class="search-result-item city" href="/my-location/'
+//					+ cityInfo.id + '/'+localeParam+'">' + cityInfo['cityDetail'] + '</a>';
+//		     }
+//		     
+//		     cityDiv += "</div>";
+//		   	} 
+//	    	else {
+//	    		cityDiv += '<div class="empty">' + noMatchFound + '</div></div>';
+//	    		
+//	    	}
+//	    	cityDiv += "<a class='tt-footer' href='/world/"+localeParam+"'>"+browseCountries+"</a>";
+//	    
+//	    	cityDiv += "</div>";
+//	    	$('.top-bar-search').append(cityDiv);
+                        }
+                    });
+                }
+            }
+        </script>
+
+        <div class="submit">
+            <!--      <table th:object="${cities}" id="userTable" border="1">
+                <tr th:each="city :${cities}">
+                    <td  th:text="${city.getLongitude()}"></td>
+                    <td  th:text="${city.getName()}"></td>
+                    <td  th:text="${city.getLatitude()}"></td>
+                </tr>
+                <script type="text/javascript" >
+                    $(document).ready(function(){
+             $("#msgid").html("This is Hello World by JQuery");
+            });
+                </script>
+            </table>-->
+        </div>
+    </body>
+</html>
